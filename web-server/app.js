@@ -33,6 +33,7 @@ app.configure('production', function(){
 });
 
 app.get('/auth_success', function(req, res) {
+  console.log("auth_success");
   if (req.session.userId) {
     var token = Token.create(req.session.userId, Date.now(), secret);
     res.render('auth', {code: 200, token: token, uid: req.session.userId});
@@ -42,6 +43,7 @@ app.get('/auth_success', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
+  console.log("login");
   var msg = req.body;
 
   var username = msg.username;
@@ -51,7 +53,11 @@ app.post('/login', function(req, res) {
     return;
   }
 
+  console.log(111111);
+  
+  console.info("getUserByName.............................. userDao=" + userDao);
   userDao.getUserByName(username, function(err, user) {
+    console.info("getUserByName..............................");
     if (err || !user) {
       console.log('username not exist!');
       res.send({code: 500});
@@ -64,20 +70,22 @@ app.post('/login', function(req, res) {
       res.send({code: 501});
       return;
     }
-
+    
     console.log(username + ' login!');
     res.send({code: 200, token: Token.create(user.id, Date.now(), secret), uid: user.id});
   });
+  // res.send({code: 200, token: Token.create(user.id, Date.now(), secret), uid: user.id});
 });
 
 app.post('/register', function(req, res) {
-  //console.log('req.params');
+  console.log('req.body=%s', JSON.stringify( req.body ));
   var msg = req.body;
   if (!msg.name || !msg.password) {
     res.send({code: 500});
     return;
   }
 
+  console.log( "userDao=%s", JSON.stringify( userDao));
   userDao.createUser(msg.name, msg.password, '', function(err, user) {
     if (err || !user) {
       console.error(err);
@@ -94,7 +102,7 @@ app.post('/register', function(req, res) {
 });
 
 //Init mysql
-mysql.init();
+// mysql.init();
 
 app.listen(3001);
 

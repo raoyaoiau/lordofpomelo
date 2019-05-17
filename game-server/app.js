@@ -31,7 +31,7 @@ app.configure('production|development', function() {
 	//Set areasIdMap, a map from area id to serverId.
 	if (app.serverType !== 'master') {
 		var areas = app.get('servers').area;
-		var areaIdMap = {};
+		var areaIdMap = {};2
 		for(var id in areas){
 			areaIdMap[areas[id].area] = areas[id].id;
 		}
@@ -120,7 +120,7 @@ app.configure('production|development', 'manager', function(){
 
 // Configure database
 app.configure('production|development', 'area|auth|connector|master', function() {
-	var dbclient = require('./app/dao/mysql/mysql').init(app);
+	var dbclient = require('./app/dao/mysql/mysql');
 	app.set('dbclient', dbclient);
 	// app.load(pomelo.sync, {path:__dirname + '/app/dao/mapping', dbclient: dbclient});
   app.use(sync, {sync: {path:__dirname + '/app/dao/mapping', dbclient: dbclient}});

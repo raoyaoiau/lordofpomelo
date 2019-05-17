@@ -62,9 +62,9 @@ __resources__["/clientManager.js"] = {
      * login
      */
     function login() {
-      if (loading) {
-        return;
-      }
+      // if (loading) {
+      //   return;
+      // }
       loading = true;
       var username = $('#loginUser').val().trim();
       var pwd = $('#loginPwd').val().trim();

@@ -52,7 +52,7 @@ pro.entry = function(msg, session, next) {
 			}
 
 			uid = user.id;
-			userDao.getPlayersByUid(user.id, cb);
+			userDao.getPlayersByUid(user.id, cb);//直接userDao？
 		}, function(res, cb) {
 			// generate session and register chat status
 			players = res;
